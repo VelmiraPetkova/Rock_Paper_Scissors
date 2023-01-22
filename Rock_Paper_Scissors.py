@@ -1,4 +1,5 @@
 import random
+import json
 
 move = ("rock", "paper", "scissors")
 rock = 1
@@ -9,6 +10,13 @@ draw = "Draw!"
 player_wins = "You win!"
 computer_wins = "You lose!"
 result = 0
+
+f=open("result.json")
+d=json.load(f)
+f.close()
+number_win_player=d["player"]
+number_win_computer=d["computer"]
+
 
 print(f'Are you ready for play?')
 print(f'You can choose move: r-for rock, p-for paper and s-for scissors')
@@ -45,3 +53,13 @@ else:
     result = computer_wins
 
 print(result)
+if result==player_wins:
+    number_win_player+=1
+elif result== computer_wins:
+    number_win_computer +=1
+
+d={"player":number_win_player, "computer":number_win_computer}
+f=open("result.json","w")
+json.dump(d,f)
+f.close()
+
